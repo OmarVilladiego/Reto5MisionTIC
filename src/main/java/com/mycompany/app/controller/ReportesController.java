@@ -2,39 +2,39 @@ package com.mycompany.app.controller;
 
 import java.util.List;
 
-import com.mycompany.app.model.dao.ComprasDeLiderDao;
-import com.mycompany.app.model.dao.DeudasPorProyectoDao;
+import com.mycompany.app.model.dao.InformacionComprasProveedorDao;
+import com.mycompany.app.model.dao.InformacionCasaCampestreDao;
 import com.mycompany.app.model.dao.InformacionLiderDao;
-import com.mycompany.app.model.vo.ComprasDeLiderVo;
-import com.mycompany.app.model.vo.DeudasPorProyectoVo;
+import com.mycompany.app.model.vo.InformacionComprasProveedorVo;
+import com.mycompany.app.model.vo.InformacionCasaCampestreVo;
 import com.mycompany.app.model.vo.InformacionLiderVo;
-import com.mycompany.app.view.ReportesView;
+
 
 public class ReportesController {
-  private InformacionLiderDao proyectoBancoDao;
-  private ComprasDeLiderDao comprasDeLiderDao;
-  private DeudasPorProyectoDao deudasPorProyectoDao;
+  private InformacionLiderDao InformacionLiderDao;
+  private InformacionComprasProveedorDao InformacionComprasProveedorDao;
+  private InformacionCasaCampestreDao InformacionCasaCampestreDao;
 
 
 public ReportesController() {
-    proyectoBancoDao = new InformacionLiderDao();
-    comprasDeLiderDao = new ComprasDeLiderDao();
-    deudasPorProyectoDao = new DeudasPorProyectoDao();
+    InformacionLiderDao = new InformacionLiderDao();
+    InformacionComprasProveedorDao = new InformacionComprasProveedorDao();
+    InformacionCasaCampestreDao = new InformacionCasaCampestreDao();
     
    
 }
 
-public List<InformacionLiderVo> ListarProyectoBanco(String Banco) throws Exception {
-    return proyectoBancoDao.Listar(Banco);
+public List<InformacionLiderVo> ListarInformacionLider() throws Exception {
+    return InformacionLiderDao.Listar();
 
 }
 
-public List<DeudasPorProyectoVo> ListarDeudarPor(Double limite) throws Exception {
-    return deudasPorProyectoDao.Listar(limite);
+public List<InformacionCasaCampestreVo> ListarInformacionCasaCampestre() throws Exception {
+    return InformacionCasaCampestreDao.Listar();
 }
 
-public List<ComprasDeLiderVo> ListarComprasDeLider() throws Exception {
-return comprasDeLiderDao.Listar();
+public List<InformacionComprasProveedorVo> ListarInformacionComprasProveedor() throws Exception {
+return InformacionComprasProveedorDao.Listar();
 }
 
 

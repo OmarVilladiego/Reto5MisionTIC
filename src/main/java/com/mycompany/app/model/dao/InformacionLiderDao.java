@@ -1,7 +1,7 @@
 package com.mycompany.app.model.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 
 
@@ -18,39 +18,30 @@ import com.mycompany.app.model.vo.InformacionLiderVo;
 
 public class InformacionLiderDao {
        
-    public List<InformacionLiderVo> Listar(String banco) throws Exception{
+    public List<InformacionLiderVo> Listar() throws Exception{
 
 
         ArrayList<InformacionLiderVo> result = new ArrayList<InformacionLiderVo>();
 
         ResultSet rs = null;
         Connection  connection = JDBCUtilities.getConnection();
-        PreparedStatement statement = null;
-        String Consulta = "SELECT P.ID_PROYECTO AS ID, P.CONSTRUCTORA, P.CIUDAD, P.CLASIFICACION, T.ESTRATO,"
-                           +" L.NOMBRE||' '||L.PRIMER_APELLIDO||''||L.SEGUNDO_APELLIDO AS LIDER FROM PROYECTO P"
-                           +" JOIN TIPO T ON (P.ID_TIPO = T.ID_TIPO) JOIN LIDER L ON (P.ID_LIDER = L.ID_LIDER)"
-                           +" WHERE P.BANCO_VINCULADO = ?"
-                           +" ORDER BY FECHA_INICIO DESC, CIUDAD, CONSTRUCTORA;";
+        Statement statement = null;
+        String Consulta = "SELECT ID_Lider,Nombre ,Primer_Apellido, Ciudad_Residencia"
+                           +" FROM Lider l"
+                           +" ORDER BY Ciudad_Residencia ASC;";
 
 
                 try {
-                    statement = connection.prepareStatement(Consulta);
-                    statement.setString(1, banco);
-                    rs = statement.executeQuery();
+                    statement = connection.createStatement();
+                    rs = statement.executeQuery(Consulta);
                     while (rs.next()) {
                         InformacionLiderVo objeto = new InformacionLiderVo();
-                        objeto.setId(rs.getInt("id"));
-                        
-                        objeto.setCiudad(rs.getString("ciudad"));
-
-                        objeto.setConstructora(rs.getString("constructora"));
-                        
-                        objeto.setClasificacion(rs.getString("clasificacion"));
-
-                        objeto.setEstrato(rs.getInt("estrato"));
-                 
-                        objeto.setLider(rs.getString("lider"));
-                        result.add(objeto);
+                       objeto.setId(rs.getInt("ID_Lider"));
+                       objeto.setNombre(rs.getString("Nombre"));
+                       objeto.setPrimerApellido(rs.getString("Primer_Apellido"));
+                       objeto.setCiudadRecidencia(rs.getString("Ciudad_Residencia"));
+                       
+                       result.add(objeto);
 
 
 
